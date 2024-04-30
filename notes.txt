@@ -819,8 +819,61 @@ Math.floor will remove decimal
                         </>
    
    - Link is used to redirect things instead of href
+   
 
-                     
+   -----------------API Call in React with axios------------------
+
+   - Install axios library : npm i axios
+   - create  a new folder named services
+   - create a js file called server_url.js
+   - inside server_url.js 
+
+     const SERVER_URL = "https://localhost:3000"
+
+     export default SERVER_URL
+
+---------------------------------------------------------JSON Server Creation-------------------------------------------------------------    
+
+ - Create a seperate folder for json file (not inside project folder)
+ - Create package.json : npm init -y
+ - Then go to the file in the vscode
+ - Create a seperate json file eg: name.json
+ - Add other resources to it 
+        eg: {
+        "allVideos":[],
+        "history":[],
+        "allCategories":[]
+      }
+  - To link with server we need json server library : npm i json-server
+  - To run json file in localhost server : npx json-server db.json (eg: name.json at last of the installation command)
+  - Create another file commonAPI.js or 
+                                          
+            eg: import axios from "axios";
+                const commonAPI = async (httpMethod,url,reqBody)=>{
+                const reqConfig = {
+                  method:httpMethod,
+                  url,
+                  data:reqBody
+                  }
+                return await axios(reqConfig).then(res=>{
+                  return res
+                }).catch(err=>{
+                  return err
+                  })
+                  }
+                export default commonAPI
+              
+
+   -------------------State Lifting-------------------
+
+   - The child cannot directly take the data from sibling, the data will store in parent as a child and call it
+   or
+
+   - Share data between components
+
+  
+
+
  
 
 
@@ -861,6 +914,10 @@ Math.floor will remove decimal
   ?-- What is HOC ?
 
      Higher Order Components : 
+  
+  ?-- Difference between json and object
+
+     Object : key must be string
 
 
 
