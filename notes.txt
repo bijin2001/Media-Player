@@ -881,6 +881,32 @@ Math.floor will remove decimal
    - json-server need to in stable version firstly it will be in alpha version, check whether is alpha or not if it is alpha update it by the  command >npm i json-server@0.17.4
 
    -create a .gitignore file in the server side and type the filename "node_modules"
+   - Define json server to run json file in index.js:
+       - go to index.js file and type
+          
+          - import json server
+            const jsonServer = require('json-server')
+            
+          - create server for media player app
+            const MPServer = jsonServer.create()
+            
+          - create middleware used by JSON Server
+            const middleware = jsonServer.defaults()
+            
+          - set up route for json file in server
+            const route = jsonServer.router('db.json')
+            
+          - set up port for running server app
+            const PORT = 3000 || process.env.PORT
+
+          MPServer.use(middleware)
+          MPServer.use(route)
+          MPServer.listen(PORT,()=>{
+              console.log(`Media Player Server Started at port ${PORT} and waiting for client request`);
+          })
+   
+   - To run the app, use 'node index.js' 
+
   
 
 
