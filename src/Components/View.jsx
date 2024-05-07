@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import Videocard from './Videocard'
-import { getAllVideoAPI } from '../Services/allAPI';
+import { addVideoAPI, getAllVideoAPI, getSingleCategoryAPI, updateCategoryAPI} from '../Services/allAPI';
 
 
-function View({addvideoResponse}) {
+function View({setDeleteVideoCategoryResponse, addvideoResponse, removeCategoryVideoResponse}) {
 
     const[deleteResponse,setDeleteResponse] = useState("")
     const [allVideos, setAllVideos] = useState([])
@@ -12,7 +12,7 @@ function View({addvideoResponse}) {
     console.log(allVideos);
     useEffect(() => {
         getALLVideos()
-    }, [addvideoResponse,deleteResponse])
+    }, [addvideoResponse,deleteResponse, removeCategoryVideoResponse])
 
     const getALLVideos = async () => {
 
@@ -29,12 +29,40 @@ function View({addvideoResponse}) {
         }
     }
 
+    const dragOverView = (e)=>{
+
+        e.preventDefault()
+    }
+
+    const handleCategoryVideo = async (e)=>{
+
+        const {categoryId,videoDetails} = JSON.parse(e.dataTransfer.getData("datashare"))
+        console.log(categoryId,videoDetails);
+        try{
+
+            const {data} = await getSingleCategoryAPI(categoryId)
+            console.log(data);
+            const updatedCategoryVideoList = data.allVideos.filter(item=>item.id!==videoDetails.id)
+            console.log(updatedCategoryVideoList);
+            const {categoryName,id} = data
+            const categoryResult = await updateCategoryAPI(categoryId,{id,categoryName,allVideos:updatedCategoryVideoList});
+            setDeleteVideoCategoryResponse(categoryResult.data)
+            await addVideoAPI(videoDetails)
+            getALLVideos()
+        
+        }catch(err){
+            console.log(err);
+        }
+    }
+
+
+
 
 
     return (
         <>
 
-            <Row>
+            <Row droppable={true} onDragOver={e=>dragOverView(e)} onDrop={e=>handleCategoryVideo(e)}>
                 {
 
                     allVideos.length > 0 ?

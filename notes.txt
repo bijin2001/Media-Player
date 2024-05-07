@@ -871,6 +871,19 @@ Math.floor will remove decimal
 
    - Share data between components
 
+
+   -----------------------------------------JSON Server Deployment Using NODE JS--------------------------------------------------------
+
+   - Create index.js file in server folder
+   - Go to server's package.json remove
+       test with
+           "start": "node index.js"
+   - json-server need to in stable version firstly it will be in alpha version, check whether is alpha or not if it is alpha update it by the  command >npm i json-server@0.17.4
+
+   -create a .gitignore file in the server side and type the filename "node_modules"
+  
+
+
   
 
 

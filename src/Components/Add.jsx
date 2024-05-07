@@ -54,6 +54,7 @@ function Add(setAddVideoResponse) {
             
                     console.log(result.data);
                     setAddVideoResponse(result.data)
+                    setvideoDetails({caption:"",imageURL:"",youtubeURL:""})
                     toast.success(`${result.data.caption} added your collection !!!`)
                     handleClose()
                 }else{
